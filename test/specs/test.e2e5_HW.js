@@ -183,7 +183,7 @@ describe("GitHub page", () => {
         await browser.pause(SHORT_TIMEOUT);
         //5. Check if the Header on newsletter page is displayed.
         const newsletterHeaderIsDisplayed = await GitHubNewsletterPage.newsletterHeader.isDisplayed();
-                if(newsletterHeaderIsDisplayed){
+        if(newsletterHeaderIsDisplayed){
                 //6. Scroll down to the Work email input.
                 await GitHubNewsletterPage.clickOnAcceptBtn();
                 //7. Set a value into Work email input.
@@ -202,9 +202,9 @@ describe("GitHub page", () => {
                     return (await GitHubConfirmationPage.confirmationPageHeader.isDisplayed());
                 }, 5000, "Header is not displayed");
                 await expect(check).toBe(true);
-            }else{
-                throw new Error("Test failed because the Confirmation header page is not displayed.");
-            }
+        }else{
+            throw new Error("Test failed because the Confirmation header page is not displayed.");
+        }
 
         console.log("=========================X===============TC3=================X=============================");     
     });
