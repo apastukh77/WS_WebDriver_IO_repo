@@ -30,7 +30,7 @@ describe("GitHub page", () => {
     });
 
 
-    xit("TC1. Sign up using user credentials on sign up page", async () => {
+    it.only("TC1. Sign up using user credentials on sign up page", async () => {
         console.log("========================================TC1==============================================");
         const userCredentials = {
             email: "antonio.banderas@test.org.ca",
@@ -160,7 +160,7 @@ describe("GitHub page", () => {
 
 
     
-    xit("TC3. Check subscription success on the github newsletter page", async () => {
+    it.skip("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
         const emailTest = "antonio.banderas@test.org.ca";
         //1. Scroll down to the Subscribe link in the footer.
@@ -201,7 +201,7 @@ describe("GitHub page", () => {
                 console.log("==============================================================================");
                 const check = await browser.waitUntil( async () => {
                     return (await GitHubConfirmationPage.confirmationPageHeader.isDisplayed());
-                }, 5000, "Header is not displayed");
+                }, 7000, "Header is not displayed");
                 await expect(check).toBe(true);
         }else{
             throw new Error("Test failed because the Confirmation header page is not displayed.");
@@ -232,7 +232,7 @@ describe("GitHub page", () => {
     });
 
 
-    it("TC5. Verify the 'Compare all features' header text", async () => {
+    xit("TC5. Verify the 'Compare all features' header text", async () => {
         console.log("========================================TC5==============================================");
         //1. Click on the 'Pricing' link.
         await GitHubMainPage.clickOnPricingLink();

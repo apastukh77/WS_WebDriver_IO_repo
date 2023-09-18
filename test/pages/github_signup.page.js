@@ -33,21 +33,22 @@ class GitHubSignUpPage {
     async clickOnReceiveProductInput(){
         await this.receiveProductInput.click();  
     };
+
 //----------------------------------------------------
-    async setEmailInput(value){
-        await this.emailInput.addValue(value);  
+    async setEmailInput(emailValue){
+        await this.emailInput.addValue(emailValue);  
     };
 
-    async setPasswordInput(value){
-        await this.passwordInput.addValue(value);  
+    async setPasswordInput(passportValue){
+        await this.passwordInput.addValue(passportValue);  
     };
 
-    async setUsernameInput(value){
-        await this.usernameInput.addValue(value);  
+    async setUsernameInput(userNameValue){
+        await this.usernameInput.addValue(userNameValue);  
     };
 
-    async setReceiveProductInput(value){
-        await this.receiveProductInput.addValue(value);  
+    async setReceiveProductInput(receiveProductValue){
+        await this.receiveProductInput.addValue(receiveProductValue);  
     };
 
     //----------------------------------------------------
