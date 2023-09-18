@@ -162,6 +162,7 @@ describe("GitHub page", () => {
     
     xit("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
+        const emailTest = "antonio.banderas@test.org.ca";
         //1. Scroll down to the Subscribe link in the footer.
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
@@ -188,7 +189,7 @@ describe("GitHub page", () => {
                 await GitHubNewsletterPage.clickOnAcceptBtn();
                 //7. Set a value into Work email input.
                 await GitHubNewsletterPage.clickOnWorkEmailInput();
-                await GitHubNewsletterPage.setWorkEmailInput("antonio.banderas@test.org.ca");
+                await GitHubNewsletterPage.setWorkEmailInput(emailTest);
                 //8. Choose the country
                 await GitHubNewsletterPage.clickOnCountryDropDown();
                 await GitHubNewsletterPage.clickOnChosenCountryInDropDown();
