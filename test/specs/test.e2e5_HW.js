@@ -162,54 +162,50 @@ describe("GitHub page", () => {
     
     xit("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
-        //1. Scroll down till Subscribe link in the footer.
+        //1. Scroll down to the Subscribe link in the footer.
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
-        //2. Check the Subscribe link is present.
+        //2. Check if the Subscribe link is present.
         const footerSubscribeLinkIsExisting = await browser.waitUntil( async () => {
                  return ( await GitHubMainPage.footerSubscribeLink.isExisting());
          }, 5000, "Link is not displayed");
 
-        if(footerSubscribeLinkIsExisting){
-                //3. Check the Subscribe link is clickable.
-                const footerSubscribeLinkIsClickable = await GitHubMainPage.footerSubscribeLink.isClickable();
-                    if(footerSubscribeLinkIsClickable){
-                        //4. Click on the Subscribe link .
-                        await GitHubMainPage.clickOnSubscribeLink();
-                        await browser.pause(SHORT_TIMEOUT);
-                        //5. Check the Header on newsletter page is displayed.
-                        const newsletterHeaderIsDisplayed = await GitHubNewsletterPage.newsletterHeader.isDisplayed();
-                        if(newsletterHeaderIsDisplayed){
-                            //6. Scroll till Work email input.
-                            await GitHubNewsletterPage.clickOnAcceptBtn();
-                            //7. Set value into Work email input.
-                            await GitHubNewsletterPage.clickOnWorkEmailInput();
-                            await GitHubNewsletterPage.setWorkEmailInput("antonio.banderas@test.org.ca");
-                            //8. Choose the country
-                            await GitHubNewsletterPage.clickOnCountryDropDown();
-                            await GitHubNewsletterPage.clickOnChosenCountryInDropDown();
-                            //9. Make tick in checkbox
-                            await GitHubNewsletterPage.clickOnCheckBox();
-                            //10. Click on Suscrible button
-                            await GitHubNewsletterPage.clickOnSubscribeBtn();
-                            //11. Check that it is confirmation page.
-                            console.log("==============================================================================");
-                            const check = await browser.waitUntil( async () => {
-                                return (await GitHubConfirmationPage.confirmationPageHeader.isDisplayed());
-                            }, 5000, "Header is not displayed");
-                            await expect(check).toBe(true);
-                        }else{
-                            console.log(" Newsletter header page Is Not Displayed");
-                            throw new Error("Test failed because Newsletter header page Is Not Displayed.");
-                        }
-                    }else{
-                        console.log("footer Subscribe Link Is Not Clickable");
-                        throw new Error("Test failed because footer Subscribe Link Is Not Clickable.");
-                    }
-        }else {
-            console.log("footer Subscribe Link Is Not Present");
-            throw new Error("Test failed because footer Subscribe Link Is Not Present.");
+        if(!footerSubscribeLinkIsExisting){
+            throw new Error("Test failed because footer Subscribe Link is not present.");
         }
+        //3. Check if the Subscribe link is clickable.
+        const footerSubscribeLinkIsClickable = await GitHubMainPage.footerSubscribeLink.isClickable();
+        if(!footerSubscribeLinkIsClickable){
+            throw new Error("Test failed because footer Subscribe Link is not clickable.");
+        }
+        //4. Click on the Subscribe link .
+        await GitHubMainPage.clickOnSubscribeLink();
+        await browser.pause(SHORT_TIMEOUT);
+        //5. Check if the Header on newsletter page is displayed.
+        const newsletterHeaderIsDisplayed = await GitHubNewsletterPage.newsletterHeader.isDisplayed();
+                if(newsletterHeaderIsDisplayed){
+                //6. Scroll down to the Work email input.
+                await GitHubNewsletterPage.clickOnAcceptBtn();
+                //7. Set a value into Work email input.
+                await GitHubNewsletterPage.clickOnWorkEmailInput();
+                await GitHubNewsletterPage.setWorkEmailInput("antonio.banderas@test.org.ca");
+                //8. Choose the country
+                await GitHubNewsletterPage.clickOnCountryDropDown();
+                await GitHubNewsletterPage.clickOnChosenCountryInDropDown();
+                //9. Make tick in checkbox
+                await GitHubNewsletterPage.clickOnCheckBox();
+                //10. Click on the Suscrible button
+                await GitHubNewsletterPage.clickOnSubscribeBtn();
+                //11. Check if it is the confirmation page.
+                console.log("==============================================================================");
+                const check = await browser.waitUntil( async () => {
+                    return (await GitHubConfirmationPage.confirmationPageHeader.isDisplayed());
+                }, 5000, "Header is not displayed");
+                await expect(check).toBe(true);
+            }else{
+                throw new Error("Test failed because the Confirmation header page is not displayed.");
+            }
+
         console.log("=========================X===============TC3=================X=============================");     
     });
 
@@ -235,20 +231,21 @@ describe("GitHub page", () => {
     });
 
 
-    xit("TC5. Verify the compare Features Header is having  text 'Compare all features'", async () => {
+    it("TC5. Verify the 'Compare all features' header text", async () => {
         console.log("========================================TC5==============================================");
-        //1. Click on pricing link.
+        //1. Click on the 'Pricing' link.
         await GitHubMainPage.clickOnPricingLink();
-        //2. Check the Pricing Page Header in pricing page.
+        //2. Check if the Pricing Page Header is displayed.
         const pricingPageHeaderIsDisplayed = await browser.waitUntil( async () => {
             return (await GitHubPricingPage.pricingPageHeader.isDisplayed());
         }, 5000, "Header is not displayed");
         await expect(pricingPageHeaderIsDisplayed).toBe(true);
-        //3. Scroll down till compare Features header is displayed
+        //3. Scroll down to the 'Compare Features' header.
         await GitHubPricingPage.compareFeaturesLink.scrollIntoView();
-        //4. Click on compare Features Header
+        //4. Click on the 'Compare Features' Header
         await GitHubPricingPage.clickOnCompareFeaturesLink();
-        // 5. Verify the compare Features Header is having  text 'Compare all features'
+        // 5. Verify that the 'Compare Features' Header contains the text 'Compare all features'.
+        await GitHubPricingPage.compareFeaturesHeader.waitForDisplayed({ timeout: 8000 });
         const compareFeaturesHeaderText = await GitHubPricingPage.compareFeaturesHeader.getText();
         console.log("==============================================================================");
         await expect(compareFeaturesHeaderText).toContain("Compare features");
