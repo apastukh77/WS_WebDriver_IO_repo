@@ -30,7 +30,7 @@ describe("GitHub page", () => {
     });
 
 
-    it.only("TC1. Sign up using user credentials on sign up page", async () => {
+    it("TC1. Sign up using user credentials on sign up page", async () => {
         console.log("========================================TC1==============================================");
         const userCredentials = {
             email: "antonio.banderas@test.org.ca",
@@ -43,59 +43,41 @@ describe("GitHub page", () => {
         await GitHubMainPage.clickOnSignUpLink();
         await browser.pause(SHORT_TIMEOUT);
         //2. Click on Sign Up Content Container on the sign up page.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.signUpContentContainer).isExisting();
-        }, 5000, "signUpContentContainer is not existing");  
+        await waitForElementToExist(GitHubSignUpPage.signUpContentContainer, 5000, "signUpContentContainer");
         await GitHubSignUpPage.clickOnSignUpContentContainer();
         //3. Click in Email Input.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.emailInput).isClickable();
-        }, 5000, "emailInput is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.emailInput,  5000, "emailInput");
         await GitHubSignUpPage.clickOnEmailInput();
         //4. Set value in Email Input.
         await GitHubSignUpPage.setEmailInput(userCredentials.email);
         //5. Click on Email Continue Button.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.emailContinueBtn).isClickable();
-        }, 5000, "emailContinueBtn is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.emailContinueBtn, 5000,  "emailContinueBtn");
         await GitHubSignUpPage.clickOnEmailContinueBtn();
         //6. Click in Passord Input.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.passwordInput).isClickable();
-        }, 5000, "passwordInput is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.passwordInput, 5000, "passwordInput");
         await GitHubSignUpPage.clickOnPasswordInput();
         //7. Set value in Password Input.
         await GitHubSignUpPage.setPasswordInput(userCredentials.password);
         //8. Click on Password Continue Button.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.passwordContinueBtn).isClickable();
-        }, 5000, "passwordContinueBtn is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.passwordContinueBtn,  5000, "passwordContinueBtn");
         await GitHubSignUpPage.clickOnPasswordContinueBtn();
         //6. Click in Username Input.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.usernameInput).isClickable();
-        }, 5000, "usernameInput is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.usernameInput,  5000, "usernameInput");
         await GitHubSignUpPage.clickOnUsernameInput();
         //7. Set value in Username Input.
         await GitHubSignUpPage.setUsernameInput(userCredentials.username);
         //8. Click on Username Continue Button.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.usernameContinueBtn).isClickable();
-        }, 5000, "usernameContinueBtn is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.usernameContinueBtn,  5000, "usernameContinueBtn");
         await GitHubSignUpPage.clickOnUsernameContinueBtn();
         //6. Click in Receive Product Input.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.receiveProductInput).isClickable();
-        }, 5000, "receiveProductInput is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.receiveProductInput, 5000, "receiveProductInput");
         await GitHubSignUpPage.clickOnReceiveProductInput();
         //7. Set value in Receive Product Input.
         await GitHubSignUpPage.setReceiveProductInput(userCredentials.receiveProduct);
         //8. Click on Receive Product Continue Button.
-        await browser.waitUntil( async () => {
-            return (await GitHubSignUpPage.receiveProductContinueBtn).isClickable();
-        }, 5000, "receiveProductContinueBtn is not clickable"); 
+        await waitForElementClickable(GitHubSignUpPage.receiveProductContinueBtn,  5000, "receiveProductContinueBtn");
         await GitHubSignUpPage.clickOnReceiveProductContinueBtn();
-        await browser.pause(SHORT_TIMEOUT);
+        await waitForElementToExist(GitHubSignUpPage.verifyYourAccountBlock, 5000, "verifyYourAccountBlock");
         const verifyYourAccountBlockText = await GitHubSignUpPage.verifyYourAccountBlock.getText();
         console.log("==============================================================================");
         await expect(verifyYourAccountBlockText).toContain("Verify your account");
@@ -105,7 +87,7 @@ describe("GitHub page", () => {
 
 
 
-    xit("TC2. Choose Enterise trial plan on organization page", async () => {
+    it("TC2. Choose Enterise trial plan on organization page", async () => {
         console.log("========================================TC2==============================================");
         //1. Scroll down till start Enterprise Header.
         await GitHubMainPage.startEnterpriseHeader.scrollIntoView();
@@ -130,10 +112,7 @@ describe("GitHub page", () => {
                             await browser.pause(SHORT_TIMEOUT);
                             try {
                             
-                                const check = await browser.waitUntil( async () => {
-                                    return (await GitHubSignInPage.signInPageHeader.isDisplayed());
-                                }, 5000, "Button is not displayed");    
-
+                                const check = await waitForElementIsDisplayed( GitHubSignInPage.signInPageHeader, 5000, "Button");
                                 console.log("check " + check);
                                 await expect(check).toBe(true);
 
@@ -142,16 +121,13 @@ describe("GitHub page", () => {
                               }
                     
                         }else{
-                            console.log(" Organization header page Is Not Displayed");
                             throw new Error("Test failed because Organization header page Is Not Displayed.");
                             
                         }
                     }else{
-                        console.log("start Enterprise Trial Link Is Not Displayed");
                         throw new Error("Test failed because start Enterprise Trial Link Is Not Displayed.");
                     }
         }else {
-            console.log("start Enterprise Header Is Not Displayed");
             throw new Error("Test failed because start Enterprise Header Is Not Displayed.");
         }
         console.log("=========================X===============TC2=================X=============================");   
@@ -160,17 +136,14 @@ describe("GitHub page", () => {
 
 
     
-    it.skip("TC3. Check subscription success on the github newsletter page", async () => {
+    it("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
         const emailTest = "antonio.banderas@test.org.ca";
         //1. Scroll down to the Subscribe link in the footer.
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
         //2. Check if the Subscribe link is present.
-        const footerSubscribeLinkIsExisting = await browser.waitUntil( async () => {
-                 return ( await GitHubMainPage.footerSubscribeLink.isExisting());
-         }, 5000, "Link is not displayed");
-
+        const footerSubscribeLinkIsExisting = await waitForElementToExist(GitHubMainPage.footerSubscribeLink, 5000, "footerSubscribeLink");
         if(!footerSubscribeLinkIsExisting){
             throw new Error("Test failed because footer Subscribe Link is not present.");
         }
@@ -199,9 +172,7 @@ describe("GitHub page", () => {
                 await GitHubNewsletterPage.clickOnSubscribeBtn();
                 //11. Check if it is the confirmation page.
                 console.log("==============================================================================");
-                const check = await browser.waitUntil( async () => {
-                    return (await GitHubConfirmationPage.confirmationPageHeader.isDisplayed());
-                }, 7000, "Header is not displayed");
+                const check = await waitForElementIsDisplayed(GitHubConfirmationPage.confirmationPageHeader, 7000, "Header");
                 await expect(check).toBe(true);
         }else{
             throw new Error("Test failed because the Confirmation header page is not displayed.");
@@ -212,7 +183,7 @@ describe("GitHub page", () => {
 
 
 
-    xit("TC4. Search word `delphi` in 2-nd element in list of Repositories", async () => {
+    it("TC4. Search word `delphi` in 2-nd element in list of Repositories", async () => {
         console.log("========================================TC4==============================================");
         //1. Locate the search button at the top of the page and click on it.
         await GitHubMainPage.clickOnSearchBtn();
@@ -232,14 +203,12 @@ describe("GitHub page", () => {
     });
 
 
-    xit("TC5. Verify the 'Compare all features' header text", async () => {
+    it("TC5. Verify the 'Compare all features' header text", async () => {
         console.log("========================================TC5==============================================");
         //1. Click on the 'Pricing' link.
         await GitHubMainPage.clickOnPricingLink();
         //2. Check if the Pricing Page Header is displayed.
-        const pricingPageHeaderIsDisplayed = await browser.waitUntil( async () => {
-            return (await GitHubPricingPage.pricingPageHeader.isDisplayed());
-        }, 5000, "Header is not displayed");
+        const pricingPageHeaderIsDisplayed = await waitForElementIsDisplayed(GitHubPricingPage.pricingPageHeader, 5000, "Header");
         await expect(pricingPageHeaderIsDisplayed).toBe(true);
         //3. Scroll down to the 'Compare Features' header.
         await GitHubPricingPage.compareFeaturesLink.scrollIntoView();
@@ -255,9 +224,23 @@ describe("GitHub page", () => {
     });
 
 
-    
+    async function waitForElementToExist(element, msek, elementName) {
+        await browser.waitUntil(async () => {
+            return element.isExisting();
+        }, msek, `${elementName} is not existing`);
+    }
 
-    
+    async function waitForElementClickable(element, msek, elementName) {
+        await browser.waitUntil(async () => {
+            return element.isClickable();
+        }, msek, `${elementName} is not clickable`);
+    }
+
+    async function waitForElementIsDisplayed(element, msek, elementName) {
+        await browser.waitUntil(async () => {
+            return element.isDisplayed();
+        }, msek, `${elementName} is not displayed`);
+    }
    
 });
 
