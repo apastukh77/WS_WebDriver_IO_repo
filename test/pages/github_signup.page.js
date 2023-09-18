@@ -9,7 +9,7 @@ class GitHubSignUpPage {
     get usernameContinueBtn(){return $("//*/button[contains(@data-optimizely-event,'username')]")};
     get receiveProductInput(){return $("//*[@id='opt_in']")};
     get receiveProductContinueBtn(){return $("//*/button[contains(@data-optimizely-event,'opt-in')]")};
-    get verivyYourAccountBlock(){return $("//*[@id='captcha-and-submit-container']/div[@class='text-mono text-bold signup-text-prompt mt-4']")};
+    get verifyYourAccountBlock(){return $("//*[@id='captcha-and-submit-container']/div[@class='text-mono text-bold signup-text-prompt mt-4']")};
    
     
    

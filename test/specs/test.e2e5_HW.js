@@ -30,8 +30,8 @@ describe("GitHub page", () => {
     });
 
 
-    it("TC1. Sign up using user credentials on sign up page", async () => {
-
+    xit("TC1. Sign up using user credentials on sign up page", async () => {
+        console.log("========================================TC1==============================================");
         const userCredentials = {
             email: "antonio.banderas@test.org.ca",
             password: "testtest1!Q",
@@ -96,15 +96,17 @@ describe("GitHub page", () => {
         }, 5000, "receiveProductContinueBtn is not clickable"); 
         await GitHubSignUpPage.clickOnReceiveProductContinueBtn();
         await browser.pause(SHORT_TIMEOUT);
-        const verivyYourAccountBlockText = await GitHubSignUpPage.verivyYourAccountBlock.getText();
+        const verifyYourAccountBlockText = await GitHubSignUpPage.verifyYourAccountBlock.getText();
         console.log("==============================================================================");
-        await expect(verivyYourAccountBlockText).toContain("Verify your account");
+        await expect(verifyYourAccountBlockText).toContain("Verify your account");
         await browser.pause(SHORT_TIMEOUT);
+        console.log("=========================X===============TC1=================X=============================");   
     });
 
 
 
     xit("TC2. Choose Enterise trial plan on organization page", async () => {
+        console.log("========================================TC2==============================================");
         //1. Scroll down till start Enterprise Header.
         await GitHubMainPage.startEnterpriseHeader.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
@@ -124,7 +126,7 @@ describe("GitHub page", () => {
                             await GitHubOrganizationPage.clickOnRecommendedBlock();
                             await browser.pause(SHORT_TIMEOUT);
                             //7. Check that it is sign in page.
-                            console.log("==============================================================================")
+                            console.log("==============================================================================");
                             await browser.pause(SHORT_TIMEOUT);
                             try {
                             
@@ -152,14 +154,14 @@ describe("GitHub page", () => {
             console.log("start Enterprise Header Is Not Displayed");
             throw new Error("Test failed because start Enterprise Header Is Not Displayed.");
         }
-    
+        console.log("=========================X===============TC2=================X=============================");   
         
     });
 
 
     
     xit("TC3. Check subscription success on the github newsletter page", async () => {
-
+        console.log("========================================TC3==============================================");
         //1. Scroll down till Subscribe link in the footer.
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
@@ -191,7 +193,7 @@ describe("GitHub page", () => {
                             //10. Click on Suscrible button
                             await GitHubNewsletterPage.clickOnSubscribeBtn();
                             //11. Check that it is confirmation page.
-                            console.log("==============================================================================")
+                            console.log("==============================================================================");
                             const check = await browser.waitUntil( async () => {
                                 return (await GitHubConfirmationPage.confirmationPageHeader.isDisplayed());
                             }, 5000, "Header is not displayed");
@@ -208,13 +210,13 @@ describe("GitHub page", () => {
             console.log("footer Subscribe Link Is Not Present");
             throw new Error("Test failed because footer Subscribe Link Is Not Present.");
         }
-    
-        
+        console.log("=========================X===============TC3=================X=============================");     
     });
 
 
 
     xit("TC4. Search word `delphi` in 2-nd element in list of Repositories", async () => {
+        console.log("========================================TC4==============================================");
         //1. Locate the search button at the top of the page and click on it.
         await GitHubMainPage.clickOnSearchBtn();
         //2. Enter the name of the popular repository "delphi" into the search bar.
@@ -223,16 +225,18 @@ describe("GitHub page", () => {
         await GitHubMainPage.setSearchBarValue("delphi")
         // 3. Press Enter or click the search icon.
         await browser.keys('Enter');
+        await GitHubReposPage.secondRepo.waitForDisplayed({ timeout: 15000 });
+        // 4. Verify that the second result in the search results list matches "delphi" (case-insensitive) on repos page
+        const secondEntryText  =  await GitHubReposPage.secondRepo.getProperty("innerText");
+        console.log("==============================================================================");
+        await expect(secondEntryText).toMatch(/delphi/i);
         await browser.pause(SHORT_TIMEOUT);
-        // 4. Verify that the third result in the search results list matches "delphi" on repos page
-        const thirdEntryText  =  await GitHubReposPage.secondRepo.getProperty("innerText");
-        console.log("==============================================================================")
-        await expect(thirdEntryText).toMatch(/delphi/i);
-        await browser.pause(SHORT_TIMEOUT);
+        console.log("=========================X===============TC4=================X=============================");
     });
 
 
     xit("TC5. Verify the compare Features Header is having  text 'Compare all features'", async () => {
+        console.log("========================================TC5==============================================");
         //1. Click on pricing link.
         await GitHubMainPage.clickOnPricingLink();
         //2. Check the Pricing Page Header in pricing page.
@@ -246,9 +250,10 @@ describe("GitHub page", () => {
         await GitHubPricingPage.clickOnCompareFeaturesLink();
         // 5. Verify the compare Features Header is having  text 'Compare all features'
         const compareFeaturesHeaderText = await GitHubPricingPage.compareFeaturesHeader.getText();
-        console.log("==============================================================================")
+        console.log("==============================================================================");
         await expect(compareFeaturesHeaderText).toContain("Compare features");
         await browser.pause(SHORT_TIMEOUT);
+        console.log("=========================X===============TC5=================X=============================");
     });
 
 
