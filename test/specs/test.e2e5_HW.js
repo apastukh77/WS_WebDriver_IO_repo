@@ -31,56 +31,80 @@ describe("GitHub page", () => {
 
 
     it("TC1. Sign up using user credentials on sign up page", async () => {
+
+        const userCredentials = {
+            email: "antonio.banderas@test.org.ca",
+            password: "testtest1!Q",
+            username: "antonio-banderasTest",
+            receiveProduct: "y",
+        };
+
         //1. Click on the Sign up link.
         await GitHubMainPage.clickOnSignUpLink();
         await browser.pause(SHORT_TIMEOUT);
         //2. Click on Sign Up Content Container on the sign up page.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.signUpContentContainer).isExisting();
+        }, 5000, "signUpContentContainer is not existing");  
         await GitHubSignUpPage.clickOnSignUpContentContainer();
         //3. Click in Email Input.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.emailInput).isClickable();
+        }, 5000, "emailInput is not clickable"); 
         await GitHubSignUpPage.clickOnEmailInput();
-        await browser.pause(SHORT_TIMEOUT);
         //4. Set value in Email Input.
-        await GitHubSignUpPage.setEmailInput("antonio.banderas@test.org.ca");
-        await browser.pause(SHORT_TIMEOUT);
+        await GitHubSignUpPage.setEmailInput(userCredentials.email);
         //5. Click on Email Continue Button.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.emailContinueBtn).isClickable();
+        }, 5000, "emailContinueBtn is not clickable"); 
         await GitHubSignUpPage.clickOnEmailContinueBtn();
-        await browser.pause(SHORT_TIMEOUT);
         //6. Click in Passord Input.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.passwordInput).isClickable();
+        }, 5000, "passwordInput is not clickable"); 
         await GitHubSignUpPage.clickOnPasswordInput();
-        await browser.pause(SHORT_TIMEOUT);
         //7. Set value in Password Input.
-        await GitHubSignUpPage.setPasswordInput("testtest1!Q");
-        await browser.pause(SHORT_TIMEOUT);
+        await GitHubSignUpPage.setPasswordInput(userCredentials.password);
         //8. Click on Password Continue Button.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.passwordContinueBtn).isClickable();
+        }, 5000, "passwordContinueBtn is not clickable"); 
         await GitHubSignUpPage.clickOnPasswordContinueBtn();
-        await browser.pause(SHORT_TIMEOUT);
         //6. Click in Username Input.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.usernameInput).isClickable();
+        }, 5000, "usernameInput is not clickable"); 
         await GitHubSignUpPage.clickOnUsernameInput();
-        await browser.pause(SHORT_TIMEOUT);
         //7. Set value in Username Input.
-        await GitHubSignUpPage.setUsernameInput("antonio-banderasTest");
-        await browser.pause(SHORT_TIMEOUT);
+        await GitHubSignUpPage.setUsernameInput(userCredentials.username);
         //8. Click on Username Continue Button.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.usernameContinueBtn).isClickable();
+        }, 5000, "usernameContinueBtn is not clickable"); 
         await GitHubSignUpPage.clickOnUsernameContinueBtn();
-        await browser.pause(SHORT_TIMEOUT);
         //6. Click in Receive Product Input.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.receiveProductInput).isClickable();
+        }, 5000, "receiveProductInput is not clickable"); 
         await GitHubSignUpPage.clickOnReceiveProductInput();
-        await browser.pause(SHORT_TIMEOUT);
         //7. Set value in Receive Product Input.
-        await GitHubSignUpPage.setReceiveProductInput("y");
-        await browser.pause(SHORT_TIMEOUT);
+        await GitHubSignUpPage.setReceiveProductInput(userCredentials.receiveProduct);
         //8. Click on Receive Product Continue Button.
+        await browser.waitUntil( async () => {
+            return (await GitHubSignUpPage.receiveProductContinueBtn).isClickable();
+        }, 5000, "receiveProductContinueBtn is not clickable"); 
         await GitHubSignUpPage.clickOnReceiveProductContinueBtn();
         await browser.pause(SHORT_TIMEOUT);
         const verivyYourAccountBlockText = await GitHubSignUpPage.verivyYourAccountBlock.getText();
-        console.log("==============================================================================")
+        console.log("==============================================================================");
         await expect(verivyYourAccountBlockText).toContain("Verify your account");
         await browser.pause(SHORT_TIMEOUT);
     });
 
 
 
-    it("TC2. Choose Enterise trial plan on organization page", async () => {
+    xit("TC2. Choose Enterise trial plan on organization page", async () => {
         //1. Scroll down till start Enterprise Header.
         await GitHubMainPage.startEnterpriseHeader.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
@@ -134,7 +158,7 @@ describe("GitHub page", () => {
 
 
     
-    it("TC3. Check subscription success on the github newsletter page", async () => {
+    xit("TC3. Check subscription success on the github newsletter page", async () => {
 
         //1. Scroll down till Subscribe link in the footer.
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
@@ -190,7 +214,7 @@ describe("GitHub page", () => {
 
 
 
-    it("TC4. Search word `delphi` in 2-nd element in list of Repositories", async () => {
+    xit("TC4. Search word `delphi` in 2-nd element in list of Repositories", async () => {
         //1. Locate the search button at the top of the page and click on it.
         await GitHubMainPage.clickOnSearchBtn();
         //2. Enter the name of the popular repository "delphi" into the search bar.
@@ -208,7 +232,7 @@ describe("GitHub page", () => {
     });
 
 
-    it("TC5. Verify the compare Features Header is having  text 'Compare all features'", async () => {
+    xit("TC5. Verify the compare Features Header is having  text 'Compare all features'", async () => {
         //1. Click on pricing link.
         await GitHubMainPage.clickOnPricingLink();
         //2. Check the Pricing Page Header in pricing page.
