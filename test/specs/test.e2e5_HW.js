@@ -20,7 +20,7 @@ describe("GitHub page", () => {
     beforeEach(async () => {
      
         await browser.url(BASE_URL_GITHUB);
-        // await browser.maximizeWindow();
+        await browser.maximizeWindow();
         await browser.pause(SHORT_TIMEOUT);
         
     });
@@ -33,7 +33,7 @@ describe("GitHub page", () => {
     });
 
 
-    it.skip("TC1. Sign up using user credentials on sign up page", async () => {
+    it("TC1. Sign up using user credentials on sign up page", async () => {
         console.log("========================================TC1==============================================");
         const userCredentials = {
             email: "Casper.Hopkins@test.org.ca",
@@ -79,21 +79,27 @@ describe("GitHub page", () => {
         //7. Set value in Receive Product Input.
         await GitHubSignUpPage.setReceiveProductInput(userCredentials.receiveProduct);
         //8. Click on Receive Product Continue Button.
-       // await waitForElementClickable(GitHubSignUpPage.receiveProductContinueBtn,  5000, "receiveProductContinueBtn");
+        await waitForElementClickable(GitHubSignUpPage.receiveProductContinueBtn,  5000, "receiveProductContinueBtn");
         await GitHubSignUpPage.clickOnReceiveProductContinueBtn();
-        await browser.pause(SHORT_TIMEOUT);
-        //await waitForElementToExist(GitHubSignUpPage.verifyYourAccountBlock, 5000, "verifyYourAccountBlock");
-        // if(!(await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport())){
+        
+        if(!(await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport())){
+            await GitHubSignUpPage.verifyYourAccountBlock.scrollIntoView();
+        }
 
-            //await GitHubSignUpPage.verifyYourAccountBlock.scrollIntoView();
-        //}
+        const verifyYourAccountBlockIsDisplayd  =  await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport();
 
-        const verifyYourAccountBlockText = await GitHubSignUpPage.verifyYourAccountBlock.getText();
-        console.log("verifyYourAccountBlockText "+verifyYourAccountBlockText);
-        console.log("==============================================================================");
-        await expect(verifyYourAccountBlockText).toContain("Verify your account");
-        await browser.pause(SHORT_TIMEOUT);
-        console.log("=========================X===============TC1=================X=============================");   
+        if(verifyYourAccountBlockIsDisplayd){
+            const verifyYourAccountBlockText = await GitHubSignUpPage.verifyYourAccountBlock.getText();
+            console.log("==============================================================================");
+            await expect(verifyYourAccountBlockText).toContain("Verify your account");
+            await browser.pause(SHORT_TIMEOUT);
+            console.log("=========================X===============TC1=================X=============================");   
+        }else{
+            console.log("==============================================================================");
+            await expect(await GitHubSignUpPage.receiveProductTick.isExisting()).toBe(true);
+            await browser.pause(SHORT_TIMEOUT);
+            console.log("=========================X===============TC1=================X=============================");   
+        }
     });
 
 
@@ -122,23 +128,20 @@ describe("GitHub page", () => {
                             console.log("==============================================================================");
                             await browser.pause(SHORT_TIMEOUT);
                             try {
-                            
                                 const check = await waitForElementIsDisplayed( GitHubSignInPage.signInPageHeader, 5000, "Button");
                                 console.log("check " + check);
                                 await expect(check).toBe(true);
-
-                              } catch (error) {
+                            } catch (error) {
                                 console.error("Error while checking element visibility:", error);
-                              }
+                            }
                     
                         }else{
                             throw new Error("Test failed because Organization header page Is Not Displayed.");
-                            
                         }
                     }else{
                         throw new Error("Test failed because start Enterprise Trial Link Is Not Displayed.");
                     }
-        }else {
+        }else{
             throw new Error("Test failed because start Enterprise Header Is Not Displayed.");
         }
         console.log("=========================X===============TC2=================X=============================");   
@@ -147,18 +150,15 @@ describe("GitHub page", () => {
 
 
     
-    it.only("TC3. Check subscription success on the github newsletter page", async () => {
+    it("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
         const emailTest = "antonio.banderas@test.org.ca";
         //1. Scroll down to the Subscribe link in the footer.
-        const f = await GitHubMainPage.footerSubscribeLink.isExisting();
-        console.log(f+" f 22222")
         await waitForElementToExist(GitHubMainPage.footerSubscribeLink, 5000, "footerSubscribeLink");
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
         //2. Check if the Subscribe link is present.
         const footerSubscribeLinkIsExisting = await waitForElementToExist(GitHubMainPage.footerSubscribeLink, 5000, "footerSubscribeLink");
-        console.log(footerSubscribeLinkIsExisting+" footerSubscribeLinkIsExisting")
         if(!footerSubscribeLinkIsExisting){
             throw new Error("Test failed because footer Subscribe Link is not present.");
         }

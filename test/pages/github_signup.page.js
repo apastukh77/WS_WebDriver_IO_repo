@@ -10,7 +10,7 @@ class GitHubSignUpPage {
     get receiveProductInput(){return $("//*[@id='opt_in']")};
     get receiveProductContinueBtn(){return $("//*/button[contains(@data-optimizely-event,'opt-in')]")};
     get verifyYourAccountBlock(){return $("//*[@id='captcha-and-submit-container']/div[@class='text-mono text-bold signup-text-prompt mt-4']")};
-   
+    get receiveProductTick(){return $("//*[@id='opt-in-container']/div[2]/div/span")};
     
    
 
