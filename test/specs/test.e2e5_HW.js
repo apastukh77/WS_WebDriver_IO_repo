@@ -9,29 +9,22 @@ import GitHubNewsletterPage from "./../pages/github_newsletter.page.js";
 import GitHubOrganizationPage from "./../pages/github_organizations.page.js";
 import GitHubConfirmationPage from "./../pages/github_confirmation.page.js";
 
-import assert from 'assert/strict';
-
 const SHORT_TIMEOUT = 2000;
 const BASE_URL_GITHUB = "https://github.com/";
-
 
 describe.skip("GitHub page", () => {
 
     beforeEach(async () => {
-
         await browser.url(BASE_URL_GITHUB);
         await browser.maximizeWindow();
         await browser.pause(SHORT_TIMEOUT);
-
     });
-
 
     afterEach(async () => {
         // Delete all cookies
         await browser.deleteCookies();
         await browser.pause(SHORT_TIMEOUT);
     });
-
 
     it("TC1. Sign up using user credentials on sign up page", async () => {
         console.log("========================================TC1==============================================");
@@ -97,8 +90,6 @@ describe.skip("GitHub page", () => {
         }
     });
 
-
-
     it("TC2. Choose Enterise trial plan on organization page", async () => {
         console.log("========================================TC2==============================================");
         //1. Scroll down till start Enterprise Header.
@@ -136,8 +127,6 @@ describe.skip("GitHub page", () => {
         console.log("=========================X===============TC2=================X=============================");
 
     });
-
-
 
     it("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
@@ -184,8 +173,6 @@ describe.skip("GitHub page", () => {
         console.log("=========================X===============TC3=================X=============================");
     });
 
-
-
     it("TC4. Search word `delphi` in 2-nd element in list of Repositories", async () => {
         console.log("========================================TC4==============================================");
         //1. Locate the search button at the top of the page and click on it.
@@ -204,7 +191,6 @@ describe.skip("GitHub page", () => {
         await browser.pause(SHORT_TIMEOUT);
         console.log("=========================X===============TC4=================X=============================");
     });
-
 
     it("TC5. Verify the 'Compare all features' header text", async () => {
         console.log("========================================TC5==============================================");
@@ -226,17 +212,16 @@ describe.skip("GitHub page", () => {
         console.log("=========================X===============TC5=================X=============================");
     });
 
-
     async function waitForElementToExist(element, msec, elementName) {
         try {
             await browser.waitUntil(async () => {
                 return element.isExisting();
             }, msec);
             console.log(`${elementName} exists.`);
-            return true; 
+            return true;
         } catch (error) {
             console.log(`${elementName} does not exist within ${msec}ms.`);
-            return false; 
+            return false;
         }
     }
 
@@ -246,10 +231,10 @@ describe.skip("GitHub page", () => {
                 return element.isClickable();
             }, msec);
             console.log(`${elementName} clickable.`);
-            return true; 
+            return true;
         } catch (error) {
             console.log(`${elementName} does not exist within ${msec}ms.`);
-            return false; 
+            return false;
         }
     }
 
@@ -259,10 +244,10 @@ describe.skip("GitHub page", () => {
                 return element.isDisplayedInViewport();
             }, msec);
             console.log(`${elementName} displayed.`);
-            return true; 
+            return true;
         } catch (error) {
             console.log(`${elementName} does not exist within ${msec}ms.`);
-            return false; 
+            return false;
         }
     }
 
