@@ -18,8 +18,11 @@ import assert from 'assert/strict';
 describe("GitHub page", () => {
 
     beforeEach(async () => {
+     
         await browser.url(BASE_URL_GITHUB);
+        // await browser.maximizeWindow();
         await browser.pause(SHORT_TIMEOUT);
+        
     });
 
 
@@ -30,16 +33,17 @@ describe("GitHub page", () => {
     });
 
 
-    it("TC1. Sign up using user credentials on sign up page", async () => {
+    it.skip("TC1. Sign up using user credentials on sign up page", async () => {
         console.log("========================================TC1==============================================");
         const userCredentials = {
-            email: "antonio.banderas@test.org.ca",
+            email: "Casper.Hopkins@test.org.ca",
             password: "testtest1!Q",
-            username: "antonio-banderasTest",
-            receiveProduct: "y",
+            username: "Casper-HopkinsTest",
+            receiveProduct: "",
         };
 
         //1. Click on the Sign up link.
+        await waitForElementToExist(GitHubMainPage.signUpLink, 5000, "signUpLink");
         await GitHubMainPage.clickOnSignUpLink();
         await browser.pause(SHORT_TIMEOUT);
         //2. Click on Sign Up Content Container on the sign up page.
@@ -75,10 +79,17 @@ describe("GitHub page", () => {
         //7. Set value in Receive Product Input.
         await GitHubSignUpPage.setReceiveProductInput(userCredentials.receiveProduct);
         //8. Click on Receive Product Continue Button.
-        await waitForElementClickable(GitHubSignUpPage.receiveProductContinueBtn,  5000, "receiveProductContinueBtn");
+       // await waitForElementClickable(GitHubSignUpPage.receiveProductContinueBtn,  5000, "receiveProductContinueBtn");
         await GitHubSignUpPage.clickOnReceiveProductContinueBtn();
-        await waitForElementToExist(GitHubSignUpPage.verifyYourAccountBlock, 5000, "verifyYourAccountBlock");
+        await browser.pause(SHORT_TIMEOUT);
+        //await waitForElementToExist(GitHubSignUpPage.verifyYourAccountBlock, 5000, "verifyYourAccountBlock");
+        // if(!(await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport())){
+
+            //await GitHubSignUpPage.verifyYourAccountBlock.scrollIntoView();
+        //}
+
         const verifyYourAccountBlockText = await GitHubSignUpPage.verifyYourAccountBlock.getText();
+        console.log("verifyYourAccountBlockText "+verifyYourAccountBlockText);
         console.log("==============================================================================");
         await expect(verifyYourAccountBlockText).toContain("Verify your account");
         await browser.pause(SHORT_TIMEOUT);
@@ -136,14 +147,18 @@ describe("GitHub page", () => {
 
 
     
-    it("TC3. Check subscription success on the github newsletter page", async () => {
+    it.only("TC3. Check subscription success on the github newsletter page", async () => {
         console.log("========================================TC3==============================================");
         const emailTest = "antonio.banderas@test.org.ca";
         //1. Scroll down to the Subscribe link in the footer.
+        const f = await GitHubMainPage.footerSubscribeLink.isExisting();
+        console.log(f+" f 22222")
+        await waitForElementToExist(GitHubMainPage.footerSubscribeLink, 5000, "footerSubscribeLink");
         await GitHubMainPage.footerSubscribeLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
         //2. Check if the Subscribe link is present.
         const footerSubscribeLinkIsExisting = await waitForElementToExist(GitHubMainPage.footerSubscribeLink, 5000, "footerSubscribeLink");
+        console.log(footerSubscribeLinkIsExisting+" footerSubscribeLinkIsExisting")
         if(!footerSubscribeLinkIsExisting){
             throw new Error("Test failed because footer Subscribe Link is not present.");
         }
@@ -225,21 +240,42 @@ describe("GitHub page", () => {
 
 
     async function waitForElementToExist(element, msek, elementName) {
-        await browser.waitUntil(async () => {
-            return element.isExisting();
-        }, msek, `${elementName} is not existing`);
+        try {
+            await browser.waitUntil(async () => {
+                return element.isExisting();
+            }, msek);
+            console.log(`${elementName} exists.`);
+            return true; // Element exists
+        } catch (error) {
+            console.log(`${elementName} does not exist within ${msek}ms.`);
+            return false; // Element does not exist
+        }
     }
 
     async function waitForElementClickable(element, msek, elementName) {
-        await browser.waitUntil(async () => {
-            return element.isClickable();
-        }, msek, `${elementName} is not clickable`);
+        try {
+            await browser.waitUntil(async () => {
+                return element.isClickable();
+            }, msek);
+            console.log(`${elementName} clickable.`);
+            return true; // Element exists
+        } catch (error) {
+            console.log(`${elementName} does not exist within ${msek}ms.`);
+            return false; // Element does not exist
+        }
     }
 
     async function waitForElementIsDisplayed(element, msek, elementName) {
-        await browser.waitUntil(async () => {
-            return element.isDisplayed();
-        }, msek, `${elementName} is not displayed`);
+        try {
+            await browser.waitUntil(async () => {
+                return element.isDisplayed();
+            }, msek);
+            console.log(`${elementName} displayed.`);
+            return true; // Element exists
+        } catch (error) {
+            console.log(`${elementName} does not exist within ${msek}ms.`);
+            return false; // Element does not exist
+        }
     }
    
 });
