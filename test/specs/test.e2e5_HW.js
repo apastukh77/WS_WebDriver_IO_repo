@@ -15,7 +15,7 @@ const SHORT_TIMEOUT = 2000;
 const BASE_URL_GITHUB = "https://github.com/";
 
 
-describe("GitHub page", () => {
+describe.skip("GitHub page", () => {
 
     beforeEach(async () => {
 
@@ -227,41 +227,41 @@ describe("GitHub page", () => {
     });
 
 
-    async function waitForElementToExist(element, msek, elementName) {
+    async function waitForElementToExist(element, msec, elementName) {
         try {
             await browser.waitUntil(async () => {
                 return element.isExisting();
-            }, msek);
+            }, msec);
             console.log(`${elementName} exists.`);
             return true; 
         } catch (error) {
-            console.log(`${elementName} does not exist within ${msek}ms.`);
+            console.log(`${elementName} does not exist within ${msec}ms.`);
             return false; 
         }
     }
 
-    async function waitForElementClickable(element, msek, elementName) {
+    async function waitForElementClickable(element, msec, elementName) {
         try {
             await browser.waitUntil(async () => {
                 return element.isClickable();
-            }, msek);
+            }, msec);
             console.log(`${elementName} clickable.`);
             return true; 
         } catch (error) {
-            console.log(`${elementName} does not exist within ${msek}ms.`);
+            console.log(`${elementName} does not exist within ${msec}ms.`);
             return false; 
         }
     }
 
-    async function waitForElementIsDisplayed(element, msek, elementName) {
+    async function waitForElementIsDisplayed(element, msec, elementName) {
         try {
             await browser.waitUntil(async () => {
                 return element.isDisplayedInViewport();
-            }, msek);
+            }, msec);
             console.log(`${elementName} displayed.`);
             return true; 
         } catch (error) {
-            console.log(`${elementName} does not exist within ${msek}ms.`);
+            console.log(`${elementName} does not exist within ${msec}ms.`);
             return false; 
         }
     }

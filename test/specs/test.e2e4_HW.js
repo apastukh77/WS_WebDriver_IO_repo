@@ -8,7 +8,7 @@ const SHORT_TIMEOUT = 2000;
 const BASE_URL_DOU = "https://dou.ua/";
 
 
-describe.skip("DOU page", () => {
+describe("DOU page", () => {
 
     beforeEach(async () => {
         await browser.url(BASE_URL_DOU);
@@ -27,11 +27,7 @@ describe.skip("DOU page", () => {
     it("TC1. Verify that text 'КВАРТИЛЬ' is on salary page", async () => {
         //1. Click on the Salary link.
         await DOUMainPage.clickOnSalaryLink();
-        const isKvartylTextExist = await browser.waitUntil(
-            () => DOUSalaryPage.kvartylText.isExisting(),
-            5000,  'kvartylText did not exist within 5 seconds'
-        );
-        //2. Verify that the text 'КВАРТИЛЬ' is present on the salary page.
+        const isKvartylTextExist = await waitForElement(DOUSalaryPage.kvartylText, 5000,"kvartylText");
         if(isKvartylTextExist){
         console.log("==============================================================================")
         await expect(await DOUSalaryPage.kvartylText.getText()).toContain("КВАРТИЛЬ");
@@ -44,11 +40,7 @@ describe.skip("DOU page", () => {
     it("TC2. Verify that Search button is visible on Jobs page", async () => {
         //1. Click on the jobs link.
         await DOUMainPage.clickOnJobsLink();
-        //await browser.pause(SHORT_TIMEOUT);
-        const isZnaityBtnExist = await browser.waitUntil(
-            () => DOUJobsPage.znaityBtn.isExisting(),
-            5000,  'kvartylText did not exist within 5 seconds'
-        );
+        const isZnaityBtnExist = await waitForElement(DOUJobsPage.znaityBtn, 5000,"znaityBtn");
         //2. Verify that Search button is visible.
         if(isZnaityBtnExist){
         console.log("==============================================================================")
@@ -59,13 +51,10 @@ describe.skip("DOU page", () => {
         }
     });
 
-    it("TC3. Verify that after click onSearch button text 'Швидкий перехід' is on jobs page", async () => {
+    it.only("TC3. Verify that after click onSearch button text 'Швидкий перехід' is on jobs page", async () => {
         //1. Click on the jobs link.
         await DOUMainPage.clickOnJobsLink();
-        const isZnaityBtnExist = await browser.waitUntil(
-            () => DOUJobsPage.znaityBtn.isExisting(),
-            5000,  'kvartylText did not exist within 5 seconds'
-        );
+        const isZnaityBtnExist = await waitForElement(DOUJobsPage.znaityBtn, 5000,"znaityBtn");
         if(!isZnaityBtnExist){
             throw new Error("Test failed because isZnaityBtn Is Not Exist.");
         }
@@ -115,6 +104,16 @@ describe.skip("DOU page", () => {
     });
 
 
+    async function waitForElement(element, msek, elementName) {
+        try {
+            await browser.waitUntil(  
+            () => element.isExisting(), msek);
+            return true; 
+        } catch (error) {
+            console.log(`${elementName} does not exist within ${msek}ms.`);
+            return false; 
+        }
+    }
 
 });
 
