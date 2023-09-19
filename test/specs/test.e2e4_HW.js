@@ -99,13 +99,13 @@ describe("DOU page", () => {
         await browser.pause(SHORT_TIMEOUT);
     });
 
-    async function waitForElement(element, msek, elementName) {
+    async function waitForElement(element, msec, elementName) {
         try {
             await browser.waitUntil(
-                () => element.isExisting(), msek);
+                () => element.isExisting(), msec);
             return true;
         } catch (error) {
-            console.log(`${elementName} does not exist within ${msek}ms.`);
+            console.log(`${elementName} does not exist within ${msec}ms.`);
             return false;
         }
     }
