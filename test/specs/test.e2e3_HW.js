@@ -8,10 +8,10 @@ const GITHUB_UNIVERSE_TEXT_LOCATOR = "//div[@class='text-semibold lh-condensed']
 const NAV_MENU_PRODUCT_BTN_LOCATOR = "//*/button[contains(text(), 'Product')]";
 const NAV_MENU_PRODUCT_DROPDOWN_COPILOT_LOCATOR = "//*/div[@class='color-fg-default h4' and contains(text(), 'Copilot')]";
 const SEARCH_BTN_LOCATOR = "//*/button/span[@data-target]";
-const SEARCH_BAR_LOCATOR= "//*[@id='query-builder-test']";
+const SEARCH_BAR_LOCATOR = "//*[@id='query-builder-test']";
 const THIRD_ENTRY_LOCATOR = "//div[3]/div/div[contains(@class,'Box-sc')]/h3/div ";
 const NAV_MENU_OPEN_SOURCE_BTN_LOCATOR = "//nav/ul/li[3]/button";
-const NAV_MENU_OPEN_SOURCE_SUBMENU_TOPICS_LINK_LOCATOR  = "//nav//a[@href='/topics']";
+const NAV_MENU_OPEN_SOURCE_SUBMENU_TOPICS_LINK_LOCATOR = "//nav//a[@href='/topics']";
 const TOPICS_PAGE_H1_LOCATOR = ".h1";
 const SKRIPE_LOGO_LINK = "//*/div[contains(@class,'d-flex flex-wrap flex-justify-around')]/img[1]";
 const PINTEREST_LOGO_LINK = "//*/div[contains(@class,'d-flex flex-wrap flex-justify-around')]/img[2]";
@@ -75,7 +75,7 @@ describe.skip("GitHub main page", () => {
         await browser.pause(SHORT_TIMEOUT);
     });
 
-  
+
     it("TC3. Search for a Repository `nodejs`", async () => {
         //1. Locate the search button at the top of the page and click on it.
         const searchBtn = await $(SEARCH_BTN_LOCATOR);
@@ -92,7 +92,7 @@ describe.skip("GitHub main page", () => {
         await browser.pause(SHORT_TIMEOUT);
         // 4. Verify that the third result in the search results list matches "nodejs"
         const thirdEntry = await $(THIRD_ENTRY_LOCATOR);
-        const thirdEntryText  =  await thirdEntry.getProperty("innerText");
+        const thirdEntryText = await thirdEntry.getProperty("innerText");
         console.log("==============================================================================")
         await expect(thirdEntryText).toMatch("/nodejs/i");
         await browser.pause(SHORT_TIMEOUT);
@@ -100,13 +100,13 @@ describe.skip("GitHub main page", () => {
 
 
     it("TC4. Explore GitHub Topics", async () => {
-        
+
         //1. Click on the "Open Source" menu in the top navigation.
         const openSourceBtn = await $(NAV_MENU_OPEN_SOURCE_BTN_LOCATOR);
 
         await openSourceBtn.click();
         await browser.pause(SHORT_TIMEOUT);
-       // 2. Select "Topics" from the dropdown and click on it.
+        // 2. Select "Topics" from the dropdown and click on it.
         const topicsLink = await $(NAV_MENU_OPEN_SOURCE_SUBMENU_TOPICS_LINK_LOCATOR);
         await topicsLink.click();
         await browser.pause(SHORT_TIMEOUT);
@@ -114,7 +114,7 @@ describe.skip("GitHub main page", () => {
         const topicsH1 = await $(TOPICS_PAGE_H1_LOCATOR);
         await topicsH1.waitForDisplayed({ timeout: 5000 });
 
-        const topicsH1Text  =  await topicsH1.getText();
+        const topicsH1Text = await topicsH1.getText();
         console.log("==============================================================================")
         await expect(topicsH1Text).toContain("Topics");
         await browser.pause(SHORT_TIMEOUT);
@@ -122,57 +122,57 @@ describe.skip("GitHub main page", () => {
 
 
     it("TC5. Check availableness 6 logos-links in the 'Trusted by the World’s Leading Organizations' Block", async () => {
-       // 1. Scroll down to the "Trusted by the World’s Leading Organizations" Block
+        // 1. Scroll down to the "Trusted by the World’s Leading Organizations" Block
         let counter = 0;
         const stripeLogoLink = await $(SKRIPE_LOGO_LINK);
 
         await stripeLogoLink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
         //  2. Check the number of logos links inside the block
-        if(stripeLogoLink.isDisplayed()){
+        if (stripeLogoLink.isDisplayed()) {
             counter++;
             const stripeAttr = await stripeLogoLink.getAttribute("src");
-            await  expect(stripeAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/stripe.svg');
+            await expect(stripeAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/stripe.svg');
         };
         const pinterestLogoLink = await $(PINTEREST_LOGO_LINK);
-        if(pinterestLogoLink.isDisplayed()){
+        if (pinterestLogoLink.isDisplayed()) {
             counter++;
-            console.log("counter "+counter);
+            console.log("counter " + counter);
             const pinterestAttr = await pinterestLogoLink.getAttribute("src");
-            await  expect(pinterestAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/pinterest.svg');
+            await expect(pinterestAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/pinterest.svg');
         };
         const kpmgLogoLink = await $(KPMG_LOGO_LINK);
-        if(kpmgLogoLink.isDisplayed()){
+        if (kpmgLogoLink.isDisplayed()) {
             counter++;
             const kpmgAttr = await kpmgLogoLink.getAttribute("src");
-            await  expect(kpmgAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/kpmg.svg');
+            await expect(kpmgAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/kpmg.svg');
         };
-        const  mersLogoLink = await $(MERCEDES_BENZ_LOGO_LINK);
-        if(mersLogoLink.isDisplayed()){
+        const mersLogoLink = await $(MERCEDES_BENZ_LOGO_LINK);
+        if (mersLogoLink.isDisplayed()) {
             counter++;
             const mersAttr = await mersLogoLink.getAttribute("src");
-            await  expect(mersAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/mercedes.svg');
+            await expect(mersAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/mercedes.svg');
         };
-        const  pgLogoLink = await $(PG_LOGO_LINK);
-        if(pgLogoLink.isDisplayed()){
+        const pgLogoLink = await $(PG_LOGO_LINK);
+        if (pgLogoLink.isDisplayed()) {
             counter++;
             const pgAttr = await pgLogoLink.getAttribute("src");
-            await  expect(pgAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/pg.svg');
+            await expect(pgAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/pg.svg');
         };
-        const  telusLogoLink = await $(TELUS_LOGO_LINK);
-        if(telusLogoLink.isDisplayed()){
+        const telusLogoLink = await $(TELUS_LOGO_LINK);
+        if (telusLogoLink.isDisplayed()) {
             counter++;
             const telusAttr = await telusLogoLink.getAttribute("src");
-            await  expect(telusAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/telus.svg');
+            await expect(telusAttr).toContain('https://github.githubassets.com/images/modules/site/home-campaign/logos/telus.svg');
         };
         console.log("==============================================================================")
-        assert(counter===6, "Nope. Must be 6.")
+        assert(counter === 6, "Nope. Must be 6.")
         await browser.pause(SHORT_TIMEOUT);
     });
 
-    
 
-    
-   
+
+
+
 });
 

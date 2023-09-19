@@ -28,7 +28,7 @@ describe.skip("Webdriverio main page", () => {
         const footerAPILink = await $(FOOTER_API_LINK_LOCATOR);
         await footerAPILink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
-        let footerAPILinkIsDisplayed = await browser.waitUntil( async () => {
+        let footerAPILinkIsDisplayed = await browser.waitUntil(async () => {
             return $(FOOTER_API_LINK_LOCATOR).isDisplayedInViewport();
         }, 5000, "footer API Link is not displayed");
         console.log("==============================================================================")
@@ -59,12 +59,12 @@ describe.skip("Webdriverio main page", () => {
         await browser.pause(SHORT_TIMEOUT);
         await footerAPILink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
-        await browser.waitUntil( async () => {
+        await browser.waitUntil(async () => {
             return $(FOOTER_API_LINK_LOCATOR).isDisplayedInViewport();
         }, 5000, "footer API Link is not displayed");
 
         const apiProtocol = await $(API_PROTOCOLS_LINK_LOCATOR);
-        const apiProtocolisDisplayed  =  await apiProtocol.isDisplayed();
+        const apiProtocolisDisplayed = await apiProtocol.isDisplayed();
         console.log("==============================================================================")
         await expect(apiProtocolisDisplayed).toBe(true);
         await browser.pause(SHORT_TIMEOUT);
@@ -81,12 +81,12 @@ describe.skip("Webdriverio main page", () => {
         await browser.pause(SHORT_TIMEOUT);
         await footerAPILink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
-        await browser.waitUntil( async () => {
+        await browser.waitUntil(async () => {
             return $(FOOTER_API_LINK_LOCATOR).isDisplayedInViewport();
         }, 5000, "footer API Link is not displayed");
 
         const apiProtocol = await $(API_PROTOCOLS_LINK_LOCATOR);
-        const apiProtocolisClickable  =  await apiProtocol.isClickable();
+        const apiProtocolisClickable = await apiProtocol.isClickable();
         console.log("==============================================================================")
         await expect(apiProtocolisClickable).toBe(true);
         await browser.pause(SHORT_TIMEOUT);
@@ -103,14 +103,14 @@ describe.skip("Webdriverio main page", () => {
         await browser.pause(SHORT_TIMEOUT);
         await footerAPILink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
-        await browser.waitUntil( async () => {
+        await browser.waitUntil(async () => {
             return $(FOOTER_API_LINK_LOCATOR).isDisplayedInViewport();
         }, 5000, "footer API Link is not displayed");
 
         const apiProtocol = await $(API_PROTOCOLS_LINK_LOCATOR);
-        const getHTMLOfApiProtocol  =  await apiProtocol.getHTML();
+        const getHTMLOfApiProtocol = await apiProtocol.getHTML();
         console.log("==============================================================================")
-        await  expect(getHTMLOfApiProtocol).toContain('href="/docs/api/protocols');
+        await expect(getHTMLOfApiProtocol).toContain('href="/docs/api/protocols');
         await browser.pause(SHORT_TIMEOUT);
     });
 
@@ -123,13 +123,13 @@ describe.skip("Webdriverio main page", () => {
         await browser.pause(SHORT_TIMEOUT);
         await footerAPILink.scrollIntoView();
         await browser.pause(SHORT_TIMEOUT);
-        await browser.waitUntil( async () => {
+        await browser.waitUntil(async () => {
             return $(FOOTER_API_LINK_LOCATOR).isDisplayedInViewport();
         }, 5000, "footer API Link is not displayed");
 
         const apiProtocol = await $(API_PROTOCOLS_LINK_LOCATOR);
         await apiProtocol.click();
-        let webdriverProtocolH2IsDisplayed = await browser.waitUntil( async () => {
+        let webdriverProtocolH2IsDisplayed = await browser.waitUntil(async () => {
             return $(WEBDRIVER_PROTOCOL_H2_HEADER_LOCATOR).isDisplayed();
         }, 5000, "WEBDRIVER PROTOCOL H2 HEADER is not displayed");
         console.log("==============================================================================")
@@ -138,7 +138,7 @@ describe.skip("Webdriverio main page", () => {
     });
 
 
-   
-   
+
+
 });
 

@@ -4,10 +4,8 @@ import DOUSalaryPage from "./../pages/dou_salary.page.js";
 import DOUJobsPage from "./../pages/dou_jobs.page.js";
 import DOURelocatePage from "./../pages/dou_relocate.page.js";
 
-import assert from 'assert/strict';
-
- const SHORT_TIMEOUT = 2000;
- const BASE_URL_DOU = "https://dou.ua/";
+const SHORT_TIMEOUT = 2000;
+const BASE_URL_DOU = "https://dou.ua/";
 
 
 describe.skip("DOU page", () => {
@@ -16,7 +14,6 @@ describe.skip("DOU page", () => {
         await browser.url(BASE_URL_DOU);
         await browser.pause(SHORT_TIMEOUT);
     });
-
 
 
     afterEach(async () => {
@@ -38,9 +35,9 @@ describe.skip("DOU page", () => {
     });
 
     it("TC2. Verify that Search button is visible on Jobs page", async () => {
-         //1. Click on the jobs link.
-         await DOUMainPage.clickOnJobsLink();
-         await browser.pause(SHORT_TIMEOUT);
+        //1. Click on the jobs link.
+        await DOUMainPage.clickOnJobsLink();
+        await browser.pause(SHORT_TIMEOUT);
         //2. Verify that Search button is visible.
         const isZnaityBtnDisplayed = await DOUJobsPage.znaityBtn.isDisplayed();
         console.log("==============================================================================")
@@ -55,12 +52,12 @@ describe.skip("DOU page", () => {
         //2. Click on the search button
         await DOUJobsPage.clickOnZnaityBtn();
         await browser.pause(SHORT_TIMEOUT);
-       //3. Verify that text 'Швидкий перехід' is on jobs page.
-       const shvydkiyPerehidText = await DOUJobsPage.shvydkiyPerehid.getText();
-       console.log("==============================================================================")
-       await expect(shvydkiyPerehidText).toContain("Швидкий перехід");
-       await browser.pause(SHORT_TIMEOUT);
-   });
+        //3. Verify that text 'Швидкий перехід' is on jobs page.
+        const shvydkiyPerehidText = await DOUJobsPage.shvydkiyPerehid.getText();
+        console.log("==============================================================================")
+        await expect(shvydkiyPerehidText).toContain("Швидкий перехід");
+        await browser.pause(SHORT_TIMEOUT);
+    });
 
 
     it("TC4. Verify that section with 'Новини' name is on relocate page", async () => {
@@ -104,10 +101,7 @@ describe.skip("DOU page", () => {
         await browser.pause(SHORT_TIMEOUT);
     });
 
-  
-    
 
-    
-   
+
 });
 

@@ -7,12 +7,12 @@ const BREADCRUMBS_LINK = "//nav/ul/li[@class='breadcrumbs__item breadcrumbs__ite
 const WEBDRIVER_LINK = "//div/p/a[@href='/docs/api/webdriver']";
 const SEARCH_BTN = ".DocSearch-Button-Placeholder";
 const DOC_SEARCH_INPUT = "//*[@id='docsearch-input']";
-const  DOC_SEARCH_INPUT_CLOSE_BTN = "//header/form/button[@title='Clear the query'and @class='DocSearch-Reset']";
+const DOC_SEARCH_INPUT_CLOSE_BTN = "//header/form/button[@title='Clear the query'and @class='DocSearch-Reset']";
 
 describe.skip("Webdriverio main page", () => {
 
     beforeEach(async () => {
-        await browser.url(BASE_URL+`/docs/api/`);
+        await browser.url(BASE_URL + `/docs/api/`);
         await browser.pause(SHORT_TIMEOUT);
     });
 
@@ -25,7 +25,7 @@ describe.skip("Webdriverio main page", () => {
     it("should check url", async () => {
         const wdio_api_url = await browser.getUrl();
         console.log("==============================================================================")
-        await expect(browser).toHaveUrl(BASE_URL+"/docs/api/");
+        await expect(browser).toHaveUrl(BASE_URL + "/docs/api/");
     });
 
 
@@ -59,8 +59,8 @@ describe.skip("Webdriverio main page", () => {
         const wdioSearchBtn = await $(SEARCH_BTN);
         await wdioSearchBtn.click();
 
-        let wdioApiSearchInputOfModalWindow = await $(DOC_SEARCH_INPUT);  
-        await wdioApiSearchInputOfModalWindow.waitForDisplayed({timeout: SHORT_TIMEOUT });
+        let wdioApiSearchInputOfModalWindow = await $(DOC_SEARCH_INPUT);
+        await wdioApiSearchInputOfModalWindow.waitForDisplayed({ timeout: SHORT_TIMEOUT });
 
         await wdioApiSearchInputOfModalWindow.setValue("Hi, Alex!");
         let wdioApiSearchInputOfModalWindowValue = await wdioApiSearchInputOfModalWindow.getValue();
@@ -68,7 +68,7 @@ describe.skip("Webdriverio main page", () => {
         console.log("==============================================================================")
         await expect(wdioApiSearchInputOfModalWindowValue).toBe("Hi, Alex!");
         // Delete text
-        let wdioApiSearchInputOfModalWindowCloseBtn = await $(DOC_SEARCH_INPUT_CLOSE_BTN);  
+        let wdioApiSearchInputOfModalWindowCloseBtn = await $(DOC_SEARCH_INPUT_CLOSE_BTN);
         await wdioApiSearchInputOfModalWindowCloseBtn.click();
         wdioApiSearchInputOfModalWindowValue = await wdioApiSearchInputOfModalWindow.getValue();
         console.log("==============================================================================")
@@ -82,6 +82,6 @@ describe.skip("Webdriverio main page", () => {
 
     });
 
-   
+
 });
 
