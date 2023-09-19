@@ -12,6 +12,7 @@ describe.skip("DOU page", () => {
 
     beforeEach(async () => {
         await browser.url(BASE_URL_DOU);
+        await browser.maximizeWindow();
         await browser.pause(SHORT_TIMEOUT);
     });
 
@@ -26,36 +27,53 @@ describe.skip("DOU page", () => {
     it("TC1. Verify that text 'КВАРТИЛЬ' is on salary page", async () => {
         //1. Click on the Salary link.
         await DOUMainPage.clickOnSalaryLink();
-        await browser.pause(SHORT_TIMEOUT);
+        const isKvartylTextExist = await browser.waitUntil(
+            () => DOUSalaryPage.kvartylText.isExisting(),
+            5000,  'kvartylText did not exist within 5 seconds'
+        );
         //2. Verify that the text 'КВАРТИЛЬ' is present on the salary page.
-        const kvartylText = await DOUSalaryPage.kvartylText.getText();
+        if(isKvartylTextExist){
         console.log("==============================================================================")
-        await expect(kvartylText).toContain("КВАРТИЛЬ");
+        await expect(await DOUSalaryPage.kvartylText.getText()).toContain("КВАРТИЛЬ");
         await browser.pause(SHORT_TIMEOUT);
-    });
+        }else{
+            throw new Error("Test failed because kvartylText Is Not Exist.");
+        }
+    }); 
 
     it("TC2. Verify that Search button is visible on Jobs page", async () => {
         //1. Click on the jobs link.
         await DOUMainPage.clickOnJobsLink();
-        await browser.pause(SHORT_TIMEOUT);
+        //await browser.pause(SHORT_TIMEOUT);
+        const isZnaityBtnExist = await browser.waitUntil(
+            () => DOUJobsPage.znaityBtn.isExisting(),
+            5000,  'kvartylText did not exist within 5 seconds'
+        );
         //2. Verify that Search button is visible.
-        const isZnaityBtnDisplayed = await DOUJobsPage.znaityBtn.isDisplayed();
+        if(isZnaityBtnExist){
         console.log("==============================================================================")
-        await expect(isZnaityBtnDisplayed).toBe(true);
+        await expect(await DOUJobsPage.znaityBtn.isDisplayed()).toBe(true);
         await browser.pause(SHORT_TIMEOUT);
+        }else{
+            throw new Error("Test failed because isZnaityBtn Is Not Exist.");
+        }
     });
 
     it("TC3. Verify that after click onSearch button text 'Швидкий перехід' is on jobs page", async () => {
         //1. Click on the jobs link.
         await DOUMainPage.clickOnJobsLink();
-        await browser.pause(SHORT_TIMEOUT);
+        const isZnaityBtnExist = await browser.waitUntil(
+            () => DOUJobsPage.znaityBtn.isExisting(),
+            5000,  'kvartylText did not exist within 5 seconds'
+        );
+        if(!isZnaityBtnExist){
+            throw new Error("Test failed because isZnaityBtn Is Not Exist.");
+        }
         //2. Click on the search button
         await DOUJobsPage.clickOnZnaityBtn();
-        await browser.pause(SHORT_TIMEOUT);
         //3. Verify that text 'Швидкий перехід' is on jobs page.
-        const shvydkiyPerehidText = await DOUJobsPage.shvydkiyPerehid.getText();
         console.log("==============================================================================")
-        await expect(shvydkiyPerehidText).toContain("Швидкий перехід");
+        await expect(await DOUJobsPage.shvydkiyPerehid.getText()).toContain("Швидкий перехід");
         await browser.pause(SHORT_TIMEOUT);
     });
 
@@ -67,9 +85,8 @@ describe.skip("DOU page", () => {
         //2. Scroll down to element
         await DOURelocatePage.newsLink.scrollIntoView();
         //3. Verify that section with 'Новини' name is on relocate page.
-        const newsText = await DOURelocatePage.newsLink.getText();
         console.log("==============================================================================")
-        await expect(newsText).toContain("Новини");
+        await expect(await DOURelocatePage.newsLink.getText()).toContain("Новини");
         await browser.pause(SHORT_TIMEOUT);
     });
 
@@ -80,10 +97,8 @@ describe.skip("DOU page", () => {
         //2. Scroll down to element
         await DOURelocatePage.blogsLink.scrollIntoView();
         //2. Verify that section with 'Новини' name is on relocate page.
-        const blogsText = await DOURelocatePage.blogsLink.getText();
-        await browser.pause(SHORT_TIMEOUT);
         console.log("==============================================================================")
-        await expect(blogsText).toContain("Блоги");
+        await expect(await DOURelocatePage.blogsLink.getText()).toContain("Блоги");
         await browser.pause(SHORT_TIMEOUT);
     });
 
@@ -94,10 +109,8 @@ describe.skip("DOU page", () => {
         //2. Scroll down to element
         await DOURelocatePage.popularLink.scrollIntoView();
         //2. Verify that section with 'Новини' name is on relocate page.
-        const popularText = await DOURelocatePage.popularLink.getText();
-        await browser.pause(SHORT_TIMEOUT);
         console.log("==============================================================================")
-        await expect(popularText).toContain("Популярне на форумі");
+        await expect(await DOURelocatePage.popularLink.getText()).toContain("Популярне на форумі");
         await browser.pause(SHORT_TIMEOUT);
     });
 

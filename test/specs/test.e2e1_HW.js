@@ -13,6 +13,7 @@ describe.skip("Webdriverio main page", () => {
 
     beforeEach(async () => {
         await browser.url(BASE_URL + `/docs/api/`);
+        await browser.maximizeWindow();
         await browser.pause(SHORT_TIMEOUT);
     });
 

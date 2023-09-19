@@ -45,7 +45,6 @@ describe("GitHub page", () => {
         //1. Click on the Sign up link.
         await waitForElementToExist(GitHubMainPage.signUpLink, 5000, "signUpLink");
         await GitHubMainPage.clickOnSignUpLink();
-        await browser.pause(SHORT_TIMEOUT);
         //2. Click on Sign Up Content Container on the sign up page.
         await waitForElementToExist(GitHubSignUpPage.signUpContentContainer, 5000, "signUpContentContainer");
         await GitHubSignUpPage.clickOnSignUpContentContainer();
@@ -81,17 +80,13 @@ describe("GitHub page", () => {
         //8. Click on Receive Product Continue Button.
         await waitForElementClickable(GitHubSignUpPage.receiveProductContinueBtn, 5000, "receiveProductContinueBtn");
         await GitHubSignUpPage.clickOnReceiveProductContinueBtn();
-
         if (!(await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport())) {
             await GitHubSignUpPage.verifyYourAccountBlock.scrollIntoView();
         }
-
-        const verifyYourAccountBlockIsDisplayd = await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport();
-
-        if (verifyYourAccountBlockIsDisplayd) {
-            const verifyYourAccountBlockText = await GitHubSignUpPage.verifyYourAccountBlock.getText();
+        const isVerifyYourAccountBlockDisplayd = await GitHubSignUpPage.verifyYourAccountBlock.isDisplayedInViewport();
+        if (isVerifyYourAccountBlockDisplayd) {
             console.log("==============================================================================");
-            await expect(verifyYourAccountBlockText).toContain("Verify your account");
+            await expect(await GitHubSignUpPage.verifyYourAccountBlock.getText()).toContain("Verify your account");
             await browser.pause(SHORT_TIMEOUT);
             console.log("=========================X===============TC1=================X=============================");
         } else {
@@ -108,25 +103,21 @@ describe("GitHub page", () => {
         console.log("========================================TC2==============================================");
         //1. Scroll down till start Enterprise Header.
         await GitHubMainPage.startEnterpriseHeader.scrollIntoView();
-        await browser.pause(SHORT_TIMEOUT);
         //2. Check the start Enterprise Header is displayed.
         const startEnterpriseHeaderIsDisplayed = await GitHubMainPage.startEnterpriseHeader.isDisplayed();
         if (startEnterpriseHeaderIsDisplayed) {
             //3. Check the start Enterprise Trial Link is displayed.
-            const startEnterpriseTrialLinkIsDisplayed = await GitHubMainPage.startEnterpriseTrialLink.isDisplayed();
-            if (startEnterpriseTrialLinkIsDisplayed) {
+            const isStartEnterpriseTrialLinkDisplayed = await GitHubMainPage.startEnterpriseTrialLink.isDisplayed();
+            if (isStartEnterpriseTrialLinkDisplayed) {
                 //4. Click on start Enterprise Trial Link.
                 await GitHubMainPage.clickOnStartEnterpriseTrialLink();
-                await browser.pause(SHORT_TIMEOUT);
                 //5. Check the Header on organization page is displayed.
-                const pickYourTrialPlan = await GitHubOrganizationPage.organizationPageHeader.isDisplayed();
-                if (pickYourTrialPlan) {
+                const isPickYourTrialPlan = await waitForElementIsDisplayed(GitHubOrganizationPage.organizationPageHeader, 5000, "organizationPageHeader");
+                if (isPickYourTrialPlan) {
                     //6. Click on enterprise cloud.
                     await GitHubOrganizationPage.clickOnRecommendedBlock();
-                    await browser.pause(SHORT_TIMEOUT);
                     //7. Check that it is sign in page.
                     console.log("==============================================================================");
-                    await browser.pause(SHORT_TIMEOUT);
                     try {
                         const check = await waitForElementIsDisplayed(GitHubSignInPage.signInPageHeader, 5000, "Button");
                         await expect(check).toBe(true);
@@ -242,10 +233,10 @@ describe("GitHub page", () => {
                 return element.isExisting();
             }, msek);
             console.log(`${elementName} exists.`);
-            return true; // Element exists
+            return true; 
         } catch (error) {
             console.log(`${elementName} does not exist within ${msek}ms.`);
-            return false; // Element does not exist
+            return false; 
         }
     }
 
@@ -255,23 +246,23 @@ describe("GitHub page", () => {
                 return element.isClickable();
             }, msek);
             console.log(`${elementName} clickable.`);
-            return true; // Element exists
+            return true; 
         } catch (error) {
             console.log(`${elementName} does not exist within ${msek}ms.`);
-            return false; // Element does not exist
+            return false; 
         }
     }
 
     async function waitForElementIsDisplayed(element, msek, elementName) {
         try {
             await browser.waitUntil(async () => {
-                return element.isDisplayed();
+                return element.isDisplayedInViewport();
             }, msek);
             console.log(`${elementName} displayed.`);
-            return true; // Element exists
+            return true; 
         } catch (error) {
             console.log(`${elementName} does not exist within ${msek}ms.`);
-            return false; // Element does not exist
+            return false; 
         }
     }
 

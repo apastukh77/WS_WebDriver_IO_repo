@@ -11,6 +11,7 @@ describe.skip("Webdriverio main page", () => {
 
     beforeEach(async () => {
         await browser.url(BASE_URL);
+        await browser.maximizeWindow();
         await browser.pause(SHORT_TIMEOUT);
     });
 
